@@ -1,0 +1,23 @@
+{
+  "name": "mongodb-export-large-reports",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "compile": "tsc -w"
+  },
+  "keywords": [],
+  "author": "Neeraj Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": "18.16.1",
+    "pnpm": "8.7.5"
+  }
+}
