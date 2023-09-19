@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node --watch dist/index.js",
     "compile": "tsc -w"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "faker": "link:@types/faker-js/faker",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },

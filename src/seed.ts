@@ -1,4 +1,9 @@
 import { faker } from '@faker-js/faker'
+import { createWriteStream } from 'node:fs'
+
+const FILE_NAME = 'database.csv'
+
+const fileWriteStream = createWriteStream(FILE_NAME)
 
 function createRandomUser() {
   const user = {
@@ -12,3 +17,10 @@ function createRandomUser() {
   return user
 }
 
+console.time('write')
+for (let i = 0; i < 1e4; i++) {  // 10.000
+  fileWriteStream.write(`${JSON.stringify(createRandomUser())}\n`)
+}
+
+fileWriteStream.end()
+console.timeEnd('write')
