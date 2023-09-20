@@ -14,12 +14,13 @@ function createRandomUser() {
     country: faker.location.country()
   }
 
-  return user
+  return `${user.firstName},${user.lastName},${user.age},${user.gender},${user.country}`
+  
 }
 
 console.time('write')
 for (let i = 0; i < 1e4; i++) {  // 10.000
-  fileWriteStream.write(`${JSON.stringify(createRandomUser())}\n`)
+  fileWriteStream.write(`${createRandomUser()}\n`)
 }
 
 fileWriteStream.end()

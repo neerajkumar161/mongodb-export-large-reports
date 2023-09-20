@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --watch dist/index.js",
+    "seed": "node dist/seed.js",
     "compile": "tsc -w"
   },
   "keywords": [],
