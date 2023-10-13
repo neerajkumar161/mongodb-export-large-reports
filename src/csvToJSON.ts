@@ -63,5 +63,13 @@ export class CSVTOJSON extends Transform {
   }
 
   // calls when processing finished of file
-  _final(callback: (error?: Error | null | undefined) => void): void {}
+  _final(callback: (error?: Error | null | undefined) => void): void {
+    if (!this.buffer.length) return callback()
+
+    for (const item of this.updateBuffer(Buffer.from(BREAK_LINE))) {
+      this.push(item)
+    }
+
+    callback()
+  }
 }
