@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext" ,
-    "module": "NodeNext" ,
+    "target": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,6 +13,6 @@
   },
   "ts-node": {
     /* https://github.com/TypeStrong/ts-node/issues/1062 */
-    "esm": true  /* Required, otherwise es module will not work */
+    "esm": true /* Required, otherwise es module will not work */
   }
 }
