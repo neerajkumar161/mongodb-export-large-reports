@@ -19,7 +19,7 @@ function createRandomUser() {
 }
 
 console.time('write')
-for (let i = 0; i < 1e4; i++) {  // 10.000
+for (let i = 0; i < 1e6; i++) {  // 10.000.00
   fileWriteStream.write(`${createRandomUser()}\n`)
 }
 

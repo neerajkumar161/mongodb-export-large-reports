@@ -1,4 +1,4 @@
-import 'dotenv'
+import 'dotenv/config'
 import { MongoClient, ServerApiVersion } from 'mongodb'
 import { createReadStream } from 'node:fs'
 import { Transform, Writable } from 'node:stream'
@@ -8,6 +8,7 @@ const FILE_NAME = 'database.csv'
 const stream = createReadStream(FILE_NAME)
 
 let counter = 0
+console.log(process.env.DB_URI)
 let client = new MongoClient(process.env.DB_URI!, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -18,7 +19,7 @@ let client = new MongoClient(process.env.DB_URI!, {
 
 console.log('client', client)
 function batchRecords() {
-  const BATCH_SIZE = 3000
+  const BATCH_SIZE = 10000
   let batchCounter = 0
   let currentBatch: any[] = []
   return new Transform({
@@ -63,6 +64,12 @@ const csvTOJSON = new CSVTOJSON({ delimeter: ',', headers: ['firstName', 'lastNa
 try {
   // await dbConnect()
   await client.connect()
+  // const connectionRes = await client.connect()
+  // console.log('COneection REs', connectionRes)
+  // connectionRes.on('connectionReady', (event) => {
+  //   console.log('COnnection Read')
+  // })
+  console.time('totalTime')
   await pipeline(
     stream,
     csvTOJSON,
@@ -73,6 +80,7 @@ try {
       }
     })
   )
+  console.timeEnd('totalTime')
 } catch (error) {
   if (error instanceof Error) console.log('Error occured!', error.message)
 }
