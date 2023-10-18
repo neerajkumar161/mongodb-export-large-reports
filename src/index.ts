@@ -5,10 +5,12 @@ import { Transform, Writable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
 import { CSVTOJSON } from './csvToJSON.js'
 const FILE_NAME = 'database.csv'
+const BATCH_SIZE = 10000
+
 const stream = createReadStream(FILE_NAME)
 
 let counter = 0
-console.log(process.env.DB_URI)
+
 let client = new MongoClient(process.env.DB_URI!, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -17,9 +19,7 @@ let client = new MongoClient(process.env.DB_URI!, {
   }
 })
 
-console.log('client', client)
 function batchRecords() {
-  const BATCH_SIZE = 10000
   let batchCounter = 0
   let currentBatch: any[] = []
   return new Transform({
@@ -51,24 +51,10 @@ function batchRecords() {
   })
 }
 
-async function dbConnect() {
-  client = new MongoClient(process.env.DB_URI!, {
-    serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true }
-  })
-
-  await client.connect()
-}
-
 const csvTOJSON = new CSVTOJSON({ delimeter: ',', headers: ['firstName', 'lastName', 'age', 'gender', 'country'] })
 
 try {
-  // await dbConnect()
   await client.connect()
-  // const connectionRes = await client.connect()
-  // console.log('COneection REs', connectionRes)
-  // connectionRes.on('connectionReady', (event) => {
-  //   console.log('COnnection Read')
-  // })
   console.time('totalTime')
   await pipeline(
     stream,
