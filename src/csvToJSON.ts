@@ -54,7 +54,7 @@ export class CSVTOJSON extends Transform {
     }
   }
 
-  // Generator to Tranform and get the data
+    // Generator to Tranform and get the data
   _transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback): void {
     for (const item of this.updateBuffer(chunk)) {
       this.push(item)
