@@ -11,7 +11,7 @@ const stream = createReadStream(FILE_NAME)
 
 let counter = 0
 
-let client = new MongoClient(process.env.DB_URI!, {
+const client = new MongoClient(process.env.DB_URI!, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
